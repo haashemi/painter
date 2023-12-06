@@ -7,7 +7,7 @@ A simple utility Golang package to help you with drawing on images
 ## Installation
 
 ```bash
-$ go get github.com/haashemi/painter@master
+$ go get github.com/haashemi/painter@main
 ```
 
 ## Example
