@@ -20,7 +20,9 @@ func Render(img *image.RGBA, renderer Renderer) {
 	rowGenerator := func() {
 		for y := range queue {
 			for x := 0; x < img.Rect.Dx(); x++ {
-				img.SetRGBA(x, y, renderer(img, image.Point{X: x, Y: y}))
+				rc := renderer(img, image.Point{X: x, Y: y})
+
+				img.SetRGBA(x, y, MergeRGBA(img.RGBAAt(x, y), rc))
 			}
 
 			wg.Done()
