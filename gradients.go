@@ -11,9 +11,9 @@ import (
 func LinearGradient(angle float64, startColor, endColor color.RGBA) Renderer {
 	angle = Radians(angle)
 
-	return func(img image.Image, point image.Point) color.RGBA {
-		u := float64(point.X)/float64(img.Bounds().Dx()) - 0.5
-		v := float64(point.Y)/float64(img.Bounds().Dy()) - 0.5
+	return func(rect image.Rectangle, point image.Point) color.RGBA {
+		u := float64(point.X-rect.Min.X)/float64(rect.Max.X-rect.Min.X) - 0.5
+		v := float64(point.Y-rect.Min.Y)/float64(rect.Max.Y-rect.Min.Y) - 0.5
 
 		atan := math.Atan2(v, u)
 		length := math.Sqrt(u*u + v*v)
@@ -32,13 +32,19 @@ func RadialGradient(startColor, endColor color.RGBA, center image.Point) Rendere
 		return math.Sqrt(float64((p.X-c.X)*(p.X-c.X)) + float64((p.Y-c.Y)*(p.Y-c.Y)))
 	}
 
-	return func(img image.Image, point image.Point) color.RGBA {
-		longestDistance := max(
-			getDistance(center, image.Point{0, 0}),
-			getDistance(center, image.Point{img.Bounds().Dx(), 0}),
-			getDistance(center, image.Point{0, img.Bounds().Dy()}),
-			getDistance(center, image.Point{img.Bounds().Dx(), img.Bounds().Dy()}),
-		)
+	var longestDistance float64
+
+	return func(rect image.Rectangle, point image.Point) color.RGBA {
+		if longestDistance == 0 {
+			longestDistance = max(
+				getDistance(center, image.Point{rect.Min.X, rect.Min.Y}),
+				getDistance(center, image.Point{rect.Min.X, rect.Max.Y}),
+				getDistance(center, image.Point{rect.Max.X, rect.Min.Y}),
+				getDistance(center, image.Point{rect.Max.X, rect.Max.Y}),
+			)
+		}
+
+		// point = image.Point{point.X - rect.Min.X, point.Y - rect.Min.Y}
 
 		a := SmoothStep(0, 1, getDistance(center, point)/longestDistance)
 
