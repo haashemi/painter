@@ -1,4 +1,4 @@
-# Painter (WIP)
+# 🎨 Painter (WIP)
 
 A simple utility Golang package to help you with drawing on images
 
