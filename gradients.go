@@ -51,3 +51,10 @@ func RadialGradient(startColor, endColor color.RGBA, center image.Point) Rendere
 		return MixRGBA(a, startColor, endColor)
 	}
 }
+
+// FillColor is a Renderer which draws the specified color on every pixels.
+func FillColor(c color.RGBA) Renderer {
+	return func(rect image.Rectangle, point image.Point) color.RGBA {
+		return c
+	}
+}
