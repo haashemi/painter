@@ -6,8 +6,8 @@ import (
 	"math"
 )
 
-// LinearGradient is a Renderer which draws a linear gradient on the image
-// from startColor to endColor with in the passed angle in degrees.
+// LinearGradient is a Renderer which draws a linear gradient on the image from
+// startColor to endColor with in the passed angle in degrees.
 func LinearGradient(angle float64, startColor, endColor color.RGBA) Renderer {
 	angle = Radians(angle)
 
@@ -25,8 +25,8 @@ func LinearGradient(angle float64, startColor, endColor color.RGBA) Renderer {
 	}
 }
 
-// RadialGradient is a Renderer which draws a radial gradient on the image
-// from startColor to endColor. startColor starts from provided center point.
+// RadialGradient is a Renderer which draws a radial gradient on the image from
+// startColor to endColor. startColor starts from provided center point.
 func RadialGradient(startColor, endColor color.RGBA, center image.Point) Renderer {
 	getDistance := func(c, p image.Point) float64 {
 		return math.Sqrt(float64((p.X-c.X)*(p.X-c.X)) + float64((p.Y-c.Y)*(p.Y-c.Y)))
@@ -35,6 +35,7 @@ func RadialGradient(startColor, endColor color.RGBA, center image.Point) Rendere
 	var longestDistance float64
 
 	return func(rect image.Rectangle, point image.Point) color.RGBA {
+		// calculate only if it's not calculated, yet. (i.e. calculate once)
 		if longestDistance == 0 {
 			longestDistance = max(
 				getDistance(center, image.Point{rect.Min.X, rect.Min.Y}),
@@ -44,10 +45,7 @@ func RadialGradient(startColor, endColor color.RGBA, center image.Point) Rendere
 			)
 		}
 
-		// point = image.Point{point.X - rect.Min.X, point.Y - rect.Min.Y}
-
 		a := SmoothStep(0, 1, getDistance(center, point)/longestDistance)
-
 		return MixRGBA(a, startColor, endColor)
 	}
 }
