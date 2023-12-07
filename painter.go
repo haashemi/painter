@@ -5,12 +5,24 @@ import (
 	"image"
 	"image/jpeg"
 	"image/png"
+	"io"
 	"os"
+
+	_ "golang.org/x/image/webp"
 )
 
 // New returns a new [image.RGBA] in the specified width and height.
 func New(width, height int) *image.RGBA {
 	return image.NewRGBA(image.Rect(0, 0, width, height))
+}
+
+// Decode calls the [image.Decode] and returns the image.
+//
+// It's useful when you're not sure about the image type and also want to be safe
+// from it.
+func Decode(r io.Reader) (image.Image, error) {
+	img, _, err := image.Decode(r)
+	return img, err
 }
 
 // SavePNG creates a file in the specified path and encodes the image as png to it.
