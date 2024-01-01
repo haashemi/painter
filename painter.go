@@ -1,4 +1,4 @@
-// Painter is a simple [image.RGBA] utility packages which helps you with drawing on images.
+// Painter is a simple [image.NRGBA] utility packages which helps you with drawing on images.
 package painter
 
 import (
@@ -11,9 +11,9 @@ import (
 	_ "golang.org/x/image/webp"
 )
 
-// New returns a new [image.RGBA] in the specified width and height.
-func New(width, height int) *image.RGBA {
-	return image.NewRGBA(image.Rect(0, 0, width, height))
+// New returns a new [image.NRGBA] in the specified width and height.
+func New(width, height int) *image.NRGBA {
+	return image.NewNRGBA(image.Rect(0, 0, width, height))
 }
 
 // Decode calls the [image.Decode] and returns the image.

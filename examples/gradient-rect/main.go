@@ -9,9 +9,9 @@ import (
 
 var (
 	Width, Height  = 1080, 1920
-	PrimaryColor   = color.RGBA{28, 181, 224, 255}
-	SecondaryColor = color.RGBA{0, 0, 70, 255}
-	TertiaryColor  = color.RGBA{0, 0, 0, 235}
+	PrimaryColor   = color.NRGBA{28, 181, 224, 255}
+	SecondaryColor = color.NRGBA{0, 0, 70, 255}
+	TertiaryColor  = color.NRGBA{0, 0, 0, 235}
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 
 	painter.RenderRect(
 		img, image.Rect(0, 1200, Width, Height),
-		painter.LinearGradient(90, TertiaryColor, color.RGBA{}),
+		painter.LinearGradient(90, TertiaryColor, color.NRGBA{}),
 	)
 
 	err := painter.SavePNG(img, "examples/gradient-rect/gradient-rect.png")

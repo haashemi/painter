@@ -26,8 +26,8 @@ import (
 func main() {
 	img := painter.New(Width, Height)
 
-	black := color.RGBA{0, 0, 0, 255}
-	white := color.RGBA{255, 255, 255, 255}
+	black := color.NRGBA{0, 0, 0, 255}
+	white := color.NRGBA{255, 255, 255, 255}
 
 	painter.Render(img, painter.LinearGradient(45, black, white))
 

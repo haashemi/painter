@@ -8,8 +8,8 @@ import (
 
 var (
 	Width, Height  = 1920, 1080
-	PrimaryColor   = color.RGBA{28, 181, 224, 255}
-	SecondaryColor = color.RGBA{0, 0, 70, 255}
+	PrimaryColor   = color.NRGBA{28, 181, 224, 255}
+	SecondaryColor = color.NRGBA{0, 0, 70, 255}
 )
 
 func main() {

@@ -8,16 +8,16 @@ import (
 )
 
 // Renderer is a function which gets the [image.Image] and the current [image.Point],
-// and returns a [image/color.RGBA] for that point.
-type Renderer func(rect image.Rectangle, point image.Point) color.RGBA
+// and returns a [image/color.NRGBA] for that point.
+type Renderer func(rect image.Rectangle, point image.Point) color.NRGBA
 
 // Render calls the renderer in each pixel of the image
 // in NumCPU*2 goroutines for better performance.
-func Render(img *image.RGBA, renderer Renderer) {
+func Render(img *image.NRGBA, renderer Renderer) {
 	RenderRect(img, img.Rect, renderer)
 }
 
-func RenderRect(img *image.RGBA, rect image.Rectangle, renderer Renderer) {
+func RenderRect(img *image.NRGBA, rect image.Rectangle, renderer Renderer) {
 	var wg sync.WaitGroup
 	var queue = make(chan int, runtime.NumCPU()*2)
 
@@ -27,7 +27,7 @@ func RenderRect(img *image.RGBA, rect image.Rectangle, renderer Renderer) {
 			for x := rect.Min.X; x < rect.Max.X; x++ {
 				rc := renderer(rect, image.Point{X: x, Y: y})
 
-				img.SetRGBA(x, y, MergeRGBA(img.RGBAAt(x, y), rc))
+				img.SetNRGBA(x, y, MergeNRGBA(img.NRGBAAt(x, y), rc))
 			}
 
 			wg.Done()
