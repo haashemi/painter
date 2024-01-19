@@ -3,6 +3,7 @@ package main
 import (
 	"image"
 	"image/color"
+	"math"
 
 	"github.com/haashemi/painter"
 )
@@ -17,15 +18,8 @@ var (
 func main() {
 	img := painter.New(Width, Height)
 
-	painter.Render(
-		img,
-		painter.RadialGradient(PrimaryColor, SecondaryColor, image.Point{1000, 1500}),
-	)
-
-	painter.RenderRect(
-		img, image.Rect(0, 1200, Width, Height),
-		painter.LinearGradient(90, TertiaryColor, color.NRGBA{}),
-	)
+	painter.DrawRadialGradient(img, img.Rect, PrimaryColor, SecondaryColor, image.Point{1000, 1500})
+	painter.DrawLinearGradient(img, image.Rect(0, 1200, Width, Height), math.Pi/2, TertiaryColor, color.NRGBA{})
 
 	err := painter.SavePNG(img, "examples/gradient-rect/gradient-rect.png")
 	if err != nil {

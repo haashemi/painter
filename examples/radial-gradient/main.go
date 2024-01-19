@@ -17,9 +17,8 @@ var (
 func main() {
 	img := painter.New(Width, Height)
 
-	painter.Render(img, painter.RadialGradient(PrimaryColor, SecondaryColor, image.Point{1000, 350}))
-
-	painter.Render(img, painter.RadialGradient(TertiaryColor, color.NRGBA{}, image.Point{1700, 950}))
+	painter.DrawRadialGradient(img, img.Rect, PrimaryColor, SecondaryColor, image.Point{1000, 350})
+	painter.DrawRadialGradient(img, img.Rect, TertiaryColor, color.NRGBA{}, image.Point{1700, 950})
 
 	err := painter.SavePNG(img, "examples/radial-gradient/radial-gradient.png")
 	if err != nil {

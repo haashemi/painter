@@ -2,6 +2,7 @@ package main
 
 import (
 	"image/color"
+	"math"
 
 	"github.com/haashemi/painter"
 )
@@ -15,7 +16,7 @@ var (
 func main() {
 	img := painter.New(Width, Height)
 
-	painter.Render(img, painter.LinearGradient(45, PrimaryColor, SecondaryColor))
+	painter.DrawLinearGradient(img, img.Rect, math.Pi/4, PrimaryColor, SecondaryColor)
 
 	err := painter.SavePNG(img, "examples/linear-gradient/linear-gradient.png")
 	if err != nil {
