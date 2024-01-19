@@ -19,20 +19,20 @@ package main
 
 import (
 	"image/color"
+	"math"
 
 	"github.com/haashemi/painter"
 )
 
 func main() {
-	img := painter.New(Width, Height)
+	img := painter.New(width, height)
 
 	black := color.NRGBA{0, 0, 0, 255}
 	white := color.NRGBA{255, 255, 255, 255}
 
-	painter.Render(img, painter.LinearGradient(45, black, white))
+	painter.DrawLinearGradient(img, img.Rect, math.Pi/4, black, white)
 
-	err := painter.SavePNG(img, "painter.png")
-	// handle the error
+	painter.SavePNG(img, "painter.png")
 }
 ```
 
