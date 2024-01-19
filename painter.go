@@ -7,9 +7,13 @@ import (
 	"image/png"
 	"io"
 	"os"
+	"runtime"
 
 	_ "golang.org/x/image/webp"
 )
+
+// Workers defines the goroutines count used for some methods like Draw.
+var Workers int = runtime.NumCPU()
 
 // New returns a new [image.NRGBA] in the specified width and height.
 func New(width, height int) *image.NRGBA {
