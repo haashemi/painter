@@ -23,13 +23,13 @@ func New(width, height int) *image.NRGBA {
 // Decode calls the [image.Decode] and returns the image.
 //
 // It's useful when you're not sure about the image type and also want to be safe
-// from it.
+// from it. supports jpeg, png, and webp.
 func Decode(r io.Reader) (image.Image, error) {
 	img, _, err := image.Decode(r)
 	return img, err
 }
 
-// SavePNG creates a file in the specified path and encodes the image as png to it.
+// SavePNG creates a file in the specified path and writes the encoded png to it.
 func SavePNG(img image.Image, path string) error {
 	f, err := os.Create(path)
 	if err != nil {
@@ -39,7 +39,7 @@ func SavePNG(img image.Image, path string) error {
 	return png.Encode(f, img)
 }
 
-// SaveJPEG creates a file in the specified path and encodes the image as jpeg to it.
+// SaveJPEG creates a file in the specified path and writes the encoded jpeg to it.
 func SaveJPEG(img image.Image, path string, o *jpeg.Options) error {
 	f, err := os.Create(path)
 	if err != nil {

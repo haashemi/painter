@@ -44,6 +44,7 @@ func Draw(img *image.NRGBA, rect image.Rectangle, process PixelProcessor) {
 	close(queue)
 }
 
+// Paste draws the src image on dst image at x,y of the dst.
 func Paste(dst *image.NRGBA, src image.Image, x, y int) {
 	draw.Draw(dst, src.Bounds().Add(image.Point{x, y}), src, image.Point{}, draw.Over)
 }
