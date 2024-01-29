@@ -82,3 +82,14 @@ func ExampleDrawLinearGradient_second() {
 
 	// Output: <nil>
 }
+
+func ExampleDrawConicGradient() {
+	img := New(1920, 1080)
+
+	DrawConicGradient(img, img.Rect, color1, color2, 15*(math.Pi/180), image.Point{img.Rect.Dx() / 2, img.Rect.Dy() / 2})
+
+	err := SavePNG(img, "tests/Example-DrawConicGradient.png")
+	fmt.Println(err)
+
+	// Output: <nil>
+}
