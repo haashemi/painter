@@ -12,7 +12,7 @@ $ go get github.com/haashemi/painter@main
 
 ## Example
 
-There are some examples in the [examples folder](/examples/), but here is one of them.
+There are some examples in [drawers_test.go](/drawers_test.go), but here is one of them:
 
 ```go
 package main
